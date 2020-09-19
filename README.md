@@ -4,7 +4,7 @@ This is a compiler for Sysy2020 (a C-like toy language) on ARMv7-a. For more inf
 
 ## Dependency 
 
-This project uses C++17 without any third-party packages, and is tested with clang 11.0.0. Other utilities needed are listed as follow.
+This project uses C++17 without any third-party packages, and is tested with Apple clang version 11.0.0 (clang-1100.0.33.17). Other utilities needed are listed as follow.
 - `cmake` is used to generate makefile. 
 - `qemu-arm-static` are used to test generated target code. See https://gist.github.com/Liryna/10710751 for details. 
 - `python` is used to run automatic test.
