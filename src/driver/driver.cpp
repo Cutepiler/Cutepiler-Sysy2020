@@ -150,26 +150,14 @@ int run_compiler()
     TypeCheck type_checker; 
     GenVisitor translator; 
 
-    //my_assert(false);
     program->accept(&type_checker);
 
-
-    // logger << type_checker;
     program->accept(&translator);
 
     auto pg = translator.getProg(); 
-    logger << pg << endl;  
-    for (auto func : pg.funcs) {
-        // logger << "Function : " << func->name << endl; 
-        // auto flow = FlowGraph(func->insts, pg.fbase); 
-        // logger << flow << endl;
-    } 
+    logger << pg << endl;
 
     OPT_LEVEL = 1;
-    RUN_TEST = false;
-    if (FILE_IN.find("conv") != string::npos) {
-        RUN_TEST = true;
-    }
     if (OPT_LEVEL >= 1) {
         std::set<int> pure_funcs;
         optimize_pred(pg, pure_funcs);
@@ -197,7 +185,6 @@ int run_compiler()
             simple_if_else_trans(flow);
             convert_tac(flow);
             simple_if_trans(flow);
-            //            optimize_tac(flow);
             flow.graphColoring();
             flow.computeLiveness();
             func->insts = flow.toInsts();
@@ -210,20 +197,5 @@ int run_compiler()
     } else {
         gen_armasm (pg, fout);
     }
-//    logger << pg << endl;
-/*    if(TARGET == ASM){
-        std::ifstream fin(FILE_IN);
-        std::ofstream fout(FILE_OUT);
-        auto asm_pg = AsmProg(pg);
-        fout << asm_pg;
-    }
-    else{
-        logger << "interpreter started" << endl;
-        std::ifstream fin(PROG_IN);
-        std::ofstream fout(PROG_OUT);
-        if (new_inte(pg, fin, fout) != OK) msg("Interpreter error");
-    }*/
-    // TODO: output
-//    assert(program != nullptr);
     return 0; 
 }
