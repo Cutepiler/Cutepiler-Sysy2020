@@ -7,7 +7,6 @@
 #include <stdexcept>
 #include "driver.h" 
 #include "../env/env.h"
-#include "../../test/test_driver.h"
 #include "../tree/tree.h"
 #include "../typecheck/typecheck.h"
 #include "../ast2tac/generate_pass.h"
@@ -110,9 +109,7 @@ bool parse_argument(int argc, char **argv)
                 PRINT_AST = true; 
                 break; 
             case '-':
-                if (str.substr(2) == "test") {
-                    if (run_test()) msg_test("pass"); else msg_test("fail");
-                } else if (str.substr(2) == "pi") {
+                if (str.substr(2) == "pi") {
                     if (!check_next("--pi", "program input file"))
                         return false;
                     PROG_IN = argv[++cur];
